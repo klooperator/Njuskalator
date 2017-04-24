@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Short name: flr -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/flr_list"
+        android:dividerHeight="2dp"
+        android:headerDividersEnabled="false"
+        style="@style/Widget.AppCompat.ListView"/>
+</RelativeLayout>

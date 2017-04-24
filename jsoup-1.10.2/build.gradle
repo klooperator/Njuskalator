@@ -1,0 +1,6 @@
+configurations.maybeCreate("default")
+artifacts.add("default", file('jsoup-1.10.2.jar'))
+dependencies {
+    'jsoup-1.10.2-javadoc.jar'
+    'jsoup-1.10.2-sources.jar'
+}
