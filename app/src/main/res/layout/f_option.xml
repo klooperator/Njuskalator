@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Frekvencija pretrage u minutama " />
+
+    <EditText
+        android:id="@+id/fo_crawl_rate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Koliko dana cuvati pretrage" />
+
+    <EditText
+        android:id="@+id/fo_cleaning_day"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Kada radit cistku (24h)( (najbolje kada se telefon najmanje koristi)" />
+
+    <EditText
+        android:id="@+id/fo_cleaning_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Korisititt samo WiFi?" />
+
+    <ToggleButton
+        android:id="@+id/fo_wifi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textOff="Koristi se i mobile data"
+        android:textOn="Koristit ce se samo WiFi" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Iskljucit service u potpunosti?" />
+
+    <ToggleButton
+        android:id="@+id/fo_allowed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ToggleButton"
+        android:textOff="Service iskljuce"
+        android:textOn="Service ukljucen" />
+</LinearLayout>

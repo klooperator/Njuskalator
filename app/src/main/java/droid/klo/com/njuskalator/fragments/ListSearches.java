@@ -37,13 +37,14 @@ public class ListSearches extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate");
-
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView");
+        //desc: ovo mora biti tu inace se back button nece pretvorit nazad u hamburger
+        ((MainActivity)getActivity()).enableHamburgerAsBack(false);
         View view = inflater.inflate(R.layout.f_list_searches,container, false);
         return view;
     }
@@ -51,6 +52,7 @@ public class ListSearches extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         Log.d(TAG, "onViewCreated");
         //region Populate listview
         sources = new DaoCP(getActivity()).getSources();
@@ -85,7 +87,7 @@ public class ListSearches extends Fragment {
             //endregion
         }
         //endregion
-        ((MainActivity)getActivity()).enableHamburgerAsBack(false);
+
         //region set floating button
         FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fls_fab);
         fab.setOnClickListener(new View.OnClickListener() {

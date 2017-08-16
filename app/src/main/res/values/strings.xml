@@ -18,4 +18,8 @@
     <string name="option_file">klo_crawl_options</string>
     <string name="vauvau">VauVau</string>
     <string name="delete">Ukloni</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="action_status">Status</string>
+    <string name="action_reset_status">Reset status</string>
+    <string name="action_clean">Clean</string>
 </resources>

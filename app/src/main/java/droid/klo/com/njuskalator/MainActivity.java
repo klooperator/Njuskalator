@@ -1,9 +1,16 @@
 package droid.klo.com.njuskalator;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,8 +21,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import droid.klo.com.njuskalator.database.NjusPreferences;
+import droid.klo.com.njuskalator.fragments.ListResults;
 import droid.klo.com.njuskalator.fragments.ListSearches;
+import droid.klo.com.njuskalator.fragments.Options;
 import droid.klo.com.njuskalator.service.CrawlerService;
+import droid.klo.com.njuskalator.service.NjuskaBroadCastReceiver;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -24,6 +35,8 @@ public class MainActivity extends AppCompatActivity
     private static final String TAG = "MainActivity";
     public ActionBarDrawerToggle toggle;
     private DrawerLayout drawer;
+    private ICrawlAIDE aidl;
+    private static final String STATUS_NUMBER_OF_RUNS = "runed_for";
     //endregion
 
 
@@ -34,8 +47,17 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         setUpActionBar();
+        bindToService();
+
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         getFragmentManager().beginTransaction().replace(R.id.fragment_placeholder,new ListSearches(),"ls").commit();
-        startService(new Intent(this, CrawlerService.class));
+        sendBroadcast(new Intent(this, NjuskaBroadCastReceiver.class));
     }
 
     @Override
@@ -79,10 +101,33 @@ public class MainActivity extends AppCompatActivity
         //int id = item.getItemId();
 
         switch (item.getItemId()){
-            case R.id.action_settings:
+            case R.id.action_refresh:
+                /*Intent i = new Intent(this, CrawlerService.class);
+                i.putExtra("refresh", "refresh");
+                startService(i);*/
+                sendBroadcast(new Intent(this, NjuskaBroadCastReceiver.class));
+
+                return true;
+            case R.id.action_status:
+                Snackbar.make(findViewById(android.R.id.content), getStatusText(), Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 return true;
             case android.R.id.home:
                 onBackPressed();
+                break;
+            case R.id.action_reset_status:
+                SharedPreferences sharedPreferences = new NjusPreferences(this);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt(STATUS_NUMBER_OF_RUNS,0);
+                editor.apply();
+                break;
+            case R.id.action_clean:
+                try {
+                    this.bindToService();
+                    this.serviceClean();
+                    //this.unbindService();
+                } catch (Exception e) {
+                    Log.e(TAG, e.getLocalizedMessage());
+                }
                 break;
         }
 
@@ -99,17 +144,18 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nd_saved_searches) {
+            Bundle b = new Bundle();
+            b.putLong("source_id", -1);
 
-        } else if (id == R.id.nav_slideshow) {
+            ListResults lr = new ListResults();
+            lr.setArguments(b);
+            getFragmentManager().beginTransaction().replace(R.id.fragment_placeholder, lr, "ListResults_"+-1).addToBackStack("ListResults_"+-1).commit();
+        } else if (id == R.id.nd_excluded_users) {
 
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nd_options) {
+            getFragmentManager().beginTransaction().replace(R.id.fragment_placeholder,new Options(),"options").addToBackStack("options").commit();
+        } else if (id == R.id.nd_about) {
 
         }
 
@@ -163,5 +209,60 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    private void refreshCurrentView(){
+        /*String fName = getFragmentManager().getBackStackEntryAt(getFragmentManager().getBackStackEntryCount()-1).getName();
+        Fragment f = getFragmentManager().findFragmentByTag(fName);
+        getFragmentManager().beginTransaction().detach(f).attach(f);*/
+        this.onStart();
+    }
+
+    private String getStatusText(){
+        SharedPreferences sharedPreferences = new NjusPreferences(this);
+        return "Number of runs: " + sharedPreferences.getInt(STATUS_NUMBER_OF_RUNS,0);
+    }
+
+    //endregion
+
+    //region AIDL
+    private void bindToService(){
+        Log.d(TAG,"bindToService");
+        //Log.d(TAG,ICrawlAIDE.class.getName());
+        //Log.d(TAG,getPackageName());
+        //Log.d(TAG,CrawlerService.class.getPackage().toString());
+        //Intent i = new Intent(this, CrawlerService.class);
+        Intent i = new Intent(this, CrawlerService.class);
+        i.setAction("njuskalator.aidl");
+        //i.setPackage(CrawlerService.class.getPackage().getName());
+        bindService(i,mConnection, Context.BIND_AUTO_CREATE);
+    }
+    private void unbindService(){
+        unbindService(mConnection);
+ 
+    }
+    private ServiceConnection mConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            Log.d(TAG,"onServiceConnected");
+            aidl = ICrawlAIDE.Stub.asInterface(service);
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            Log.d(TAG,"onServiceDisconnected");
+        }
+    };
+    public void serviceClean(){
+        Log.d(TAG,"updateService");
+        //bindToService();
+        if(aidl != null){
+            try {
+                aidl.testService();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }else{
+            Log.d(TAG,"updateService/mAidlStub == null");
+        }
+    }
     //endregion
 }

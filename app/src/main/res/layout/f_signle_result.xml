@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Short name: sr -->
-<ScrollView android:layout_width="match_parent"
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     >
@@ -31,6 +32,7 @@
                 android:layout_below="@+id/sr_scroll_ww"
                 android:layout_marginTop="30dp"
                 android:text="TextView" />
+
 
             <TextView
                 android:id="@+id/sr_price"
@@ -87,6 +89,22 @@
                         />
                 </LinearLayout>
             </ScrollView>
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/sr_favorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:clickable="true"
+                android:layout_margin="@dimen/fab_margin"
+                app:backgroundTint="@color/colorAccent"
+                app:elevation="3dp"
+                app:fabSize="mini"
+                app:srcCompat="@android:drawable/btn_star_big_on" />
+
+
 
         </RelativeLayout>
     </LinearLayout>

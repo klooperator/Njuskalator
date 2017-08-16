@@ -1,69 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Short name: faus -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
-
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/ime_pretrage" />
+        android:text="@string/ime_pretrage"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:id="@+id/textView9" />
+        <!--app:layout_constraintTop_toTopOf="@+id/faus_delete"-->
+
 
     <EditText
         android:id="@+id/faus_name"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="" />
+        android:text=""
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintRight_toRightOf="@+id/textView9"
+        app:layout_constraintTop_toBottomOf="@+id/textView9"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="@+id/textView9" />
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/link_pretrage" />
+        android:text="@string/link_pretrage"
+        android:id="@+id/textView10"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintRight_toRightOf="@+id/faus_name"
+        app:layout_constraintTop_toBottomOf="@+id/faus_name"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="@+id/faus_name" />
 
     <EditText
         android:id="@+id/faus_link"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="" />
+        android:text=""
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintRight_toRightOf="@+id/textView10"
+        app:layout_constraintTop_toBottomOf="@+id/textView10"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="@+id/textView10" />
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/bot_value" />
+        android:text="@string/bot_value"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintRight_toRightOf="@+id/faus_link"
+        app:layout_constraintTop_toBottomOf="@+id/faus_link"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="@+id/faus_link"
+        android:id="@+id/textView8" />
 
     <EditText
         android:id="@+id/faus_bot"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="" />
+        android:text=""
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintRight_toRightOf="@+id/textView8"
+        app:layout_constraintTop_toBottomOf="@+id/textView8"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="@+id/textView8" />
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/top_value" />
+        android:text="@string/top_value"
+        android:id="@+id/textView7"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintRight_toRightOf="@+id/faus_bot"
+        app:layout_constraintTop_toBottomOf="@+id/faus_bot"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="@+id/faus_bot" />
 
     <EditText
         android:id="@+id/faus_top"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="" />
+        android:text=""
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintRight_toRightOf="@+id/textView7"
+        app:layout_constraintTop_toBottomOf="@+id/textView7"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="@+id/textView7" />
+
     <RadioGroup
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_weight="0.0"
-        android:id="@+id/faus_color_group">
+        android:id="@+id/faus_color_group"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintRight_toRightOf="@+id/faus_top"
+        app:layout_constraintTop_toBottomOf="@+id/faus_top"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="@+id/faus_top">
 
         <RadioButton
             android:id="@+id/radioButton"
@@ -71,7 +135,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text=""
-            android:background="#FFCDD2"/>
+            android:background="#FFCDD2" />
 
         <RadioButton
             android:id="@+id/radioButton3"
@@ -79,7 +143,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text=""
-            android:background="#E1BEE7"/>
+            android:background="#E1BEE7" />
 
         <RadioButton
             android:id="@+id/radioButton5"
@@ -87,7 +151,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text=""
-            android:background="#BBDEFB"/>
+            android:background="#BBDEFB" />
 
         <RadioButton
             android:id="@+id/radioButton4"
@@ -95,7 +159,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text=""
-            android:background="#DCEDC8"/>
+            android:background="#DCEDC8" />
 
         <RadioButton
             android:id="@+id/radioButton2"
@@ -103,36 +167,78 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text=""
-            android:background="#CFD8DC"/>
+            android:background="#CFD8DC" />
     </RadioGroup>
 
     <ToggleButton
         android:id="@+id/faus_vau"
         style="@android:style/Widget.Holo.Light.Button.Toggle"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="VauPretraga"
         android:textColorLink="@color/colorAccent"
         android:textOff="VauVau oglasi nece bit spremljeni"
         android:textOn="VauVau oglasi ce biti ukjuceni u pretragu"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintRight_toRightOf="@+id/faus_color_group"
+        app:layout_constraintTop_toBottomOf="@+id/faus_color_group"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="@+id/faus_color_group" />
 
     <Button
         android:id="@+id/faus_save"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/save"
         android:textColor="@color/colorPrimary"
-        android:background="@color/colorAccent"/>
+        android:background="@color/colorAccent"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintRight_toRightOf="@+id/faus_vau"
+        app:layout_constraintTop_toBottomOf="@+id/faus_vau"
+        app:layout_constraintLeft_toLeftOf="@+id/faus_vau" />
 
-    <Button
+    <!--<Button
         android:id="@+id/faus_delete"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="Button"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/faus_save" />-->
+    <Button
+        android:id="@+id/faus_delete"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:background="#F44336"
         android:text="Delete"
-        android:visibility="gone"
+        android:visibility="visible"
         tools:text="@string/delete"
-        android:layout_marginTop="@dimen/fab_margin"/>
+        android:layout_marginTop="@dimen/fab_margin"
+        app:layout_constraintTop_toBottomOf="@+id/faus_save"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintRight_toRightOf="@+id/faus_vau"
+        app:layout_constraintLeft_toLeftOf="@+id/faus_vau"/>
 
-</LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/faus_floater"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:elevation="4dp"
+        app:fabSize="normal"
+        app:srcCompat="@android:drawable/ic_menu_compass"
+        app:layout_constraintBottom_creator="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_margin="@dimen/fab_margin"
+        tools:layout_editor_absoluteX="312dp" />
+
+
+
+
+</android.support.constraint.ConstraintLayout>

@@ -15,7 +15,7 @@ public class Links {
     public static final String TABLE_LINK_NAME = "t_links";
 
     //create statements
-    public static final String CREATE_TABLE_RESULTS =
+    public static final String CREATE_TABLE_LINKS =
             "CREATE TABLE " + TABLE_LINK_NAME + " ( " +
                     LINK + " TEXT NOT NULL, " +
                     TIME + " INTEGER, " +

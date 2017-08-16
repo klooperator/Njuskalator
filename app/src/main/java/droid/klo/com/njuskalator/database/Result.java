@@ -23,7 +23,7 @@ public class Result {
     private String originalLink;
     private int is_viewed;
     private String isVau;
-
+    private int favorite;
 
 
     //table
@@ -43,8 +43,9 @@ public class Result {
     public static final String IS_VIEWED = "is_viewed";
     public static final String IS_VAU = "is_vau";
     public static final String TABLE = "description_table";
+    public static final String FAVORITE = "favorite";
 
-    public static final String[] resultColumns = {ID,SOURCE_ID, PHONE_NUMBER, TITLE, CONTENT,PRICE,SELLER,TIME, ORIGINAL_LINK, LINK, IS_VIEWED, IS_VAU, TABLE};
+    public static final String[] resultColumns = {ID,SOURCE_ID, PHONE_NUMBER, TITLE, CONTENT,PRICE,SELLER,TIME, ORIGINAL_LINK, LINK, IS_VIEWED, IS_VAU, TABLE,FAVORITE};
 
     //create statements
     public static final String CREATE_TABLE_RESULTS =
@@ -60,6 +61,7 @@ public class Result {
                     ORIGINAL_LINK + " TEXT, "+
                     LINK + " TEXT, " +
                     IS_VIEWED + " INTEGER, " +
+                    FAVORITE + " INTEGER, " +
                     IS_VAU + " TEXT, " +
                     TABLE + " TEXT, " +
                     "FOREIGN KEY (" + SOURCE_ID + ") REFERENCES " + Source.TABLE_SOURCE_NAME + "(" +Source.ID + ")" +
@@ -173,6 +175,14 @@ public class Result {
         this.table = table;
     }
 
+    public int getFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(int favorite) {
+        this.favorite = favorite;
+    }
+
     public ContentValues getContentValues(){
         ContentValues cv = new ContentValues();
         cv.put(SOURCE_ID,this.source_id);
@@ -188,6 +198,7 @@ public class Result {
         cv.put(IS_VIEWED,this.is_viewed);
         cv.put(IS_VAU,this.isVau);
         cv.put(TABLE, this.table);
+        cv.put(FAVORITE, this.favorite);
         return cv;
     }
 

@@ -104,13 +104,17 @@ public class JSoupMain implements Runnable {
         return new Random().nextInt(uaArray.length);
     }
 
+    public static String getPickedUAString(int index){
+        return uaArray[index];
+    }
+
 
     //endregion
 
 
     @Override
     public void run() {
-        Log.d(TAG, "run("+source.getName()+")");
+        Log.e(TAG, "run("+source.getName()+")");
         //getting new links
         DaoCP dao = new DaoCP(context);
         //this.lastResults = dao.getLastLinks(this.source.getId());
@@ -176,6 +180,7 @@ public class JSoupMain implements Runnable {
                     r.setTime(System.currentTimeMillis());
                     r.setIs_viewed(0);
                     r.setIsVau("regular");
+                    r.setFavorite(0);
 
                     Log.v(TAG, source.getName() + " :" + r.getLink() + "[" + r.getTitle() + "]");
                     Log.i(TAG, r.getSeller() + " [" + r.getPhone_number() + "]");
@@ -230,6 +235,7 @@ public class JSoupMain implements Runnable {
                     r.setTime(System.currentTimeMillis());
                     r.setIs_viewed(0);
                     r.setIsVau("vau");
+                    r.setFavorite(0);
 
                     Log.v(TAG, source.getName() + " :" + r.getLink() + "[" + r.getTitle() + "]");
                     Log.i(TAG, r.getSeller() + " [" + r.getPhone_number() + "]");
@@ -254,7 +260,7 @@ public class JSoupMain implements Runnable {
         dao.insertResults(resaults);
         dao.insertLinks(newResults, source.getId());
         dao.insertLinks(newVauResults, source.getId());
-
+        Log.e(TAG, "run("+source.getName()+") - - - END");
     }
 
     //region methods

@@ -3,33 +3,25 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:id="@+id/nd_saved_searches"
+            android:icon="@android:drawable/star_big_off"
+            android:title="Saved searches" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/nd_excluded_users"
+            android:icon="?android:attr/alertDialogIcon"
+            android:title="Isključeni prodavači" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Ostalo">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:id="@+id/nd_options"
+                android:icon="@drawable/ic_menu_manage"
+                android:title="Opcije" />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/nd_about"
+                android:icon="?android:attr/fingerprintAuthDrawable"
+                android:title="About" />
         </menu>
     </item>
 

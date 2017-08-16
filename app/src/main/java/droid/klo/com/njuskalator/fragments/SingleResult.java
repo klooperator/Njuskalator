@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -112,5 +113,26 @@ public class SingleResult extends Fragment {
 
         WebView wvTable = (WebView) getActivity().findViewById(R.id.sr_table);
         wvTable.loadDataWithBaseURL(null, this.r.getTable(), "text/html", "utf-8", null);
+
+        FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.sr_favorite);
+        if(r.getFavorite() == 0)fab.setImageResource(android.R.drawable.star_big_off);
+        else fab.setImageResource(android.R.drawable.star_big_on);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(r.getFavorite() == 0){
+                    ((FloatingActionButton)view).setImageResource(android.R.drawable.star_big_on);//promjenit zvjezdu
+                    new DaoCP(getActivity()).updateIsFavorite(r.getId(), true);//postavit ga kao fav
+                    r.setFavorite(1);
+                }
+                else {
+                    ((FloatingActionButton)view).setImageResource(android.R.drawable.star_big_off);
+                    new DaoCP(getActivity()).updateIsFavorite(r.getId(), false);
+                    r.setFavorite(0);
+
+                }
+            }
+        });
     }
+
 }

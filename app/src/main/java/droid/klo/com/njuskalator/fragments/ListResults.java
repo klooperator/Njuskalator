@@ -35,7 +35,10 @@ public class ListResults extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if(getArguments() != null){
-            resultList=new DaoCP(getActivity()).getResults(getArguments().getLong("source_id"), 0, 50);
+            long what= getArguments().getLong("source_id");
+
+            if(what == -1)resultList=new DaoCP(getActivity()).getFavorites();
+            else resultList=new DaoCP(getActivity()).getResults(getArguments().getLong("source_id"), 0, 50);
         }
 
     }

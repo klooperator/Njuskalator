@@ -19,7 +19,7 @@ public class DBHelper extends SQLiteOpenHelper {
     //region class variables
     private static final String TAG = "DBHelper";
 
-    private static final int DB_VERSION = 7;
+    private static final int DB_VERSION = 10;
     public static final String DB_NAME = "njuskalator_db";
 
 
@@ -37,7 +37,7 @@ public class DBHelper extends SQLiteOpenHelper {
             db.execSQL(Source.CREATE_TABLE_SOURCE);
             db.execSQL(Result.CREATE_TABLE_RESULTS);
             db.execSQL(ExcludeUsers.CREATE_TABLE_EXCLUDE);
-            db.execSQL(Links.CREATE_TABLE_RESULTS);
+            db.execSQL(Links.CREATE_TABLE_LINKS);
         }catch (SQLException e){
             Log.e(TAG,"error: "+ e);
         }

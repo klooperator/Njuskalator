@@ -1,11 +1,13 @@
 package droid.klo.com.njuskalator.fragments;
 
 import android.app.Fragment;
+import android.content.ClipboardManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,6 +77,15 @@ public class AddUpdateSource extends Fragment {
         final ToggleButton vau_toggle = (ToggleButton) getActivity().findViewById((R.id.faus_vau));
         final RadioGroup rgColor = (RadioGroup) getActivity().findViewById(R.id.faus_color_group);
         final Button bttn_delete = (Button)getActivity().findViewById(R.id.faus_delete) ;
+        final FloatingActionButton floater = (FloatingActionButton)getActivity().findViewById(R.id.faus_floater);
+
+        floater.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                JustWebView jwv = new JustWebView();
+                getActivity().getFragmentManager().beginTransaction().replace(R.id.fragment_placeholder, jwv, "EmptyWebView").addToBackStack("EmptyWebView").commit();
+            }
+        });
 
         if(isExisted) {
 
@@ -93,6 +104,16 @@ public class AddUpdateSource extends Fragment {
                     getActivity().onBackPressed();
                 }
             });
+        }else{
+            ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(getActivity().CLIPBOARD_SERVICE);
+            try{
+                String clipString = clipboardManager.getPrimaryClip().getItemAt(0).getText().toString();
+                if(clipString.contains("njuskalo.hr"))txt_link.setText(clipString);
+            }catch (Exception e){
+                Log.e(TAG, e.getLocalizedMessage());
+                txt_link.setText("");
+            }
+
         }
         bttn_save.setOnClickListener(new View.OnClickListener() {
             @Override

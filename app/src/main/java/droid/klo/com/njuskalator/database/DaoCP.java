@@ -75,11 +75,26 @@ public class DaoCP {
         Log.w(TAG, rows + " rows created");
 
     }
+
+    public void insertLink(String link, long sourceId){
+        ContentValues cv = new ContentValues();
+        cv.put(Links.LINK, link);
+        cv.put(Links.TIME, System.currentTimeMillis());
+        cv.put(Links.SOURCE_ID, sourceId);
+        context.getContentResolver().insert(CP.URI_LINKS, cv);
+    }
     //endregion
 
     //region updaters
     public void updateResultIsVIewed(long sourceId){
 
+    }
+
+    public void updateIsFavorite(long id, boolean isFavorite){
+        ContentValues cv = new ContentValues();
+        if(isFavorite)cv.put(Result.FAVORITE,1);
+        else cv.put(Result.FAVORITE, 0);
+        context.getContentResolver().update(CP.URI_RESULT, cv, Result.ID + "=?", new String[] {Long.toString(id)});
     }
     //endregion
 
@@ -93,6 +108,47 @@ public class DaoCP {
         Cursor c = context.getContentResolver().query(mTableName, mProjection, mSelection, mSelctionArgs, mSortOrder);
         c.moveToFirst();
         return cursorToResult(c);
+    }
+
+    public List<Result> getResultTimeOrder(){
+        List<Result> s = new ArrayList<Result>();
+        Uri mTableName = CP.URI_RESULT;
+        String[] mProjection = Result.resultColumns;
+        String mSelection = null;
+        String[] mSelctionArgs = null;
+        String mSortOrder = Result.TIME + " ASC";
+
+        Cursor c = context.getContentResolver().query(mTableName, mProjection, mSelection, mSelctionArgs, mSortOrder);
+        c.moveToFirst();
+        while(!c.isAfterLast()){
+            //DEBUG - prebaceno u funkciju...
+            s.add(cursorToResult(c));
+            c.moveToNext();
+        }
+        c.close();
+        return s;
+    }
+
+    public List<Result> getFavorites(){
+        Log.d(TAG, "getNewResults");
+        List<Result> s = new ArrayList<Result>();
+
+        Uri mTableName = CP.URI_RESULT;
+        String[] mProjection = Result.resultColumns;
+        String mSelection = Result.FAVORITE+"=?";
+        String[] mSelctionArgs = new String[]{"1"};
+        String mSortOrder = Result.TIME + " DESC";
+
+
+        Cursor c = context.getContentResolver().query(mTableName, mProjection, mSelection, mSelctionArgs, mSortOrder);
+        c.moveToFirst();
+        while(!c.isAfterLast()){
+            //DEBUG - prebaceno u funkciju...
+            s.add(cursorToResult(c));
+            c.moveToNext();
+        }
+        c.close();
+        return s;
     }
 
     public List<Result> getResults(long sourceID, int offset, int limit){
@@ -129,7 +185,6 @@ public class DaoCP {
         if(c != null){
             c.moveToFirst();
             while(!c.isAfterLast()){
-                //DEBUG - prebaceno u funkciju...
                 out.add(cursorToResult(c));
                 c.moveToNext();
             }
@@ -151,9 +206,14 @@ public class DaoCP {
         String mLimit = "20";
 
         Cursor c = context.getContentResolver().query(mTableName, mProjection, mSelection, mSelctionArgs, mSortOrder);
-        String s = ""+c.getCount();
+        String s;
+        if(c!=null){
+            s = ""+c.getCount();
+            c.close();
+        }
+        else s="";
         Log.i(TAG, s);
-        c.close();
+
         return s;
     }
 
@@ -189,6 +249,26 @@ public class DaoCP {
         String mSortOrder = null;
 
         Cursor c = context.getContentResolver().query(mTableName, mProjection, mSelection, mSelctionArgs, mSortOrder);
+        c.moveToFirst();
+        while(!c.isAfterLast()){
+            s.add(c.getString(c.getColumnIndex(Links.LINK)));
+            c.moveToNext();
+        }
+        c.close();
+        return s;
+    }
+
+    public List<String> getLastLinks(long id){
+        Log.d(TAG, "getLastLinks");
+        List<String> s = new ArrayList<String>();
+
+        Uri mTableName = CP.URI_LINKS;
+        String[] mProjection = Links.linkColumns;
+        String mSelection = Links.SOURCE_ID+"=?";
+        String[] mSelectionArgs = new String[]{Long.toString(id)};
+        String mSortOrder = null;
+
+        Cursor c = context.getContentResolver().query(mTableName, mProjection, mSelection, mSelectionArgs, mSortOrder);
         c.moveToFirst();
         while(!c.isAfterLast()){
             s.add(c.getString(c.getColumnIndex(Links.LINK)));
@@ -293,10 +373,13 @@ public class DaoCP {
     public boolean isOpen(){
         return false;
     }
+
     public void close(){
         Log.d(TAG, "close()");
     }
+
     public void open(){Log.d(TAG, "open()");}
+
     public Result cursorToResult(Cursor c){
         Result r = new Result();
         r.setIs_viewed(c.getInt(c.getColumnIndex(Result.IS_VIEWED)));
@@ -312,6 +395,7 @@ public class DaoCP {
         r.setTime(c.getLong(c.getColumnIndex(Result.TIME)));
         r.setId(c.getLong(c.getColumnIndex(Result.ID)));
         r.setTable(c.getString(c.getColumnIndex(Result.TABLE)));
+        r.setFavorite(c.getInt(c.getColumnIndex(Result.FAVORITE)));
         return r;
     }
     //endregion
