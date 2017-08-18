@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,13 +35,13 @@ public class ListSearches extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate");
+        //Log.d(TAG, "onCreate");
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        Log.d(TAG, "onCreateView");
+        //Log.d(TAG, "onCreateView");
         //desc: ovo mora biti tu inace se back button nece pretvorit nazad u hamburger
         ((MainActivity)getActivity()).enableHamburgerAsBack(false);
         View view = inflater.inflate(R.layout.f_list_searches,container, false);
@@ -53,7 +52,7 @@ public class ListSearches extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Log.d(TAG, "onViewCreated");
+        //Log.d(TAG, "onViewCreated");
         //region Populate listview
         sources = new DaoCP(getActivity()).getSources();
         ListView mListView = (ListView)getActivity().findViewById(R.id.fls_listview);

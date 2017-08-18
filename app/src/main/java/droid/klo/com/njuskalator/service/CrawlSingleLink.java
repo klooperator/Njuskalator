@@ -150,7 +150,7 @@ public class CrawlSingleLink implements Runnable {
                 }
             }
             b.putInt("njuskalator_notification_counter",countNotifs);
-            Log.d(TAG, "count notification = " + countNotifs);
+            //Log.d(TAG, "count notification = " + countNotifs);
             if(countNotifs>0){
                 mBuilder.setContentTitle((countNotifs+1) + " predmeta pronadjeno");
                 mBuilder.setContentText("");
@@ -182,7 +182,7 @@ public class CrawlSingleLink implements Runnable {
 
         @Override
         protected Document doInBackground(String... params) {
-            Log.d(TAG, "GetDoc/doInBackground: "+params[0]);
+            //Log.d(TAG, "GetDoc/doInBackground: "+params[0]);
             Connection connection = Jsoup.connect(params[0]);
             connection.userAgent(params[1]);
             Document doc = null;

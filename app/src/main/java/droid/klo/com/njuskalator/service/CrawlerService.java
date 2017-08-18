@@ -97,6 +97,11 @@ public class CrawlerService extends IntentService {
     }
 
 
+//    @Override
+//    public int onStartCommand(Intent intent, int flags, int startId) {
+//        Log.i("LocalService", "Received start id " + startId + ": " + intent);
+//        return START_STICKY;
+//    }
 
     @Nullable
     @Override
@@ -112,7 +117,7 @@ public class CrawlerService extends IntentService {
         Log.d(TAG, "onCreate");
         canIRun = false;
         handler = new Handler();
-        //initService();
+        initService();
 
 
     }
@@ -136,15 +141,13 @@ public class CrawlerService extends IntentService {
         Intent intent = new Intent(this, NjuskaBroadCastReceiver.class);
         final PendingIntent pIntent = PendingIntent.getBroadcast(this, NjuskaBroadCastReceiver.REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarm = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        long time = System.currentTimeMillis() + runTime * 60L * 1000L + (60L * 1000L * (new Random(System.currentTimeMillis()).nextInt(4) - 2));
+        //long time = System.currentTimeMillis() + 1000*30;
         //alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 1000,AlarmManager.INTERVAL_FIFTEEN_MINUTES/3, pIntent);
         if(Build.VERSION.SDK_INT >= 19){
-            alarm.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,
-                    System.currentTimeMillis() + runTime * 60L * 1000L + (60L * 1000L * (new Random(System.currentTimeMillis()).nextInt(4) - 2)),
-                    pIntent);
+            alarm.setExact(AlarmManager.RTC_WAKEUP,time,pIntent);
         }else{
-            alarm.set(AlarmManager.RTC_WAKEUP,
-                    System.currentTimeMillis() + runTime * 60L * 1000L + (60L * 1000L * (new Random(System.currentTimeMillis()).nextInt(4) - 2)),
-                    pIntent);
+            alarm.set(AlarmManager.RTC_WAKEUP,time,pIntent);
         }
 
 
@@ -206,6 +209,8 @@ public class CrawlerService extends IntentService {
             }
         };
         handler.post(mainRunnable);
+        //handler.postDelayed(jumpRunnable(), System.currentTimeMillis() + runTime * 60L * 1000L + (60L * 1000L * (new Random(System.currentTimeMillis()).nextInt(4) - 2)));
+        Log.i(TAG, handler.toString());
         if(this.receiverIntent != null)NjuskaBroadCastReceiver.completeWakefulIntent(receiverIntent);
     }
 
@@ -213,6 +218,15 @@ public class CrawlerService extends IntentService {
         Log.d("ICrawlAIDE/testService", "start");
         AsyncCleaner ac = new AsyncCleaner(getContext());
         ac.execute();
+    }
+
+    private Runnable jumpRunnable(){
+        return new Runnable() {
+            @Override
+            public void run() {
+                initService();
+            }
+        };
     }
 
 

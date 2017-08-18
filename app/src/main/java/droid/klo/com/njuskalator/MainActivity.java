@@ -47,7 +47,9 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         setUpActionBar();
-        bindToService();
+        Intent i = new Intent(this, CrawlerService.class);
+        //startService(i);
+       // bindToService();
 
 
 
@@ -58,6 +60,13 @@ public class MainActivity extends AppCompatActivity
         super.onStart();
         getFragmentManager().beginTransaction().replace(R.id.fragment_placeholder,new ListSearches(),"ls").commit();
         sendBroadcast(new Intent(this, NjuskaBroadCastReceiver.class));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbindService();
+        Log.d(TAG,"MAIN activitiy detroyed");
     }
 
     @Override
@@ -122,7 +131,7 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.action_clean:
                 try {
-                    this.bindToService();
+                    //this.bindToService();
                     this.serviceClean();
                     //this.unbindService();
                 } catch (Exception e) {
@@ -237,7 +246,7 @@ public class MainActivity extends AppCompatActivity
     }
     private void unbindService(){
         unbindService(mConnection);
- 
+
     }
     private ServiceConnection mConnection = new ServiceConnection() {
         @Override

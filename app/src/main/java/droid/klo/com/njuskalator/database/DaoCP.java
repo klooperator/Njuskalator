@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,29 +24,29 @@ public class DaoCP {
 
     //region constructors
     public DaoCP (Context context){
-        Log.d(TAG, "Construct");
+        //Log.d(TAG, "Construct");
         this.context = context;
     }
     //endregion
 
     //region inserters
     public void insertExcludedUser(ExcludeUsers e){
-        Log.d(TAG, "insertExcludedUser");
+        //Log.d(TAG, "insertExcludedUser");
         Uri uri = context.getContentResolver().insert(CP.URI_EXCLUDE, e.getContentValues());
     }
     public void insertSource(Source s){
-        Log.d(TAG, "insertSource()");
+        //Log.d(TAG, "insertSource()");
         Uri uri = context.getContentResolver().insert(CP.URI_SOURCE, s.getContentValues());
     }
 
     public void insertResult(Result r){
-        Log.d(TAG, "insertResult()");
+        //Log.d(TAG, "insertResult()");
         Uri uri = context.getContentResolver().insert(CP.URI_RESULT, r.getContentValues());
     }
 
 
     public void insertResults(List<Result> rList){
-        Log.d(TAG, "insertResults");
+        //Log.d(TAG, "insertResults");
         ContentValues[] values = new ContentValues[rList.size()];
         int count = 0;
         for(Result r : rList){
@@ -55,12 +54,12 @@ public class DaoCP {
             count++;
         }
         int rows = context.getContentResolver().bulkInsert(CP.URI_RESULT, values);
-        Log.w(TAG, rows + " rows created");
+        //Log.w(TAG, rows + " rows created");
 
     }
 
     public void insertLinks(List<String> rList, long sourceId){
-        Log.d(TAG, "insertResults");
+       // Log.d(TAG, "insertResults");
         ContentValues[] values = new ContentValues[rList.size()];
         int count = 0;
         for(String r : rList){
@@ -72,7 +71,7 @@ public class DaoCP {
             count++;
         }
         int rows = context.getContentResolver().bulkInsert(CP.URI_LINKS, values);
-        Log.w(TAG, rows + " rows created");
+        //Log.w(TAG, rows + " rows created");
 
     }
 
@@ -130,7 +129,7 @@ public class DaoCP {
     }
 
     public List<Result> getFavorites(){
-        Log.d(TAG, "getNewResults");
+        //Log.d(TAG, "getNewResults");
         List<Result> s = new ArrayList<Result>();
 
         Uri mTableName = CP.URI_RESULT;
@@ -152,7 +151,7 @@ public class DaoCP {
     }
 
     public List<Result> getResults(long sourceID, int offset, int limit){
-        Log.d(TAG, "getNewResults");
+        //Log.d(TAG, "getNewResults");
         List<Result> s = new ArrayList<Result>();
 
         Uri mTableName = CP.URI_RESULT;
@@ -175,7 +174,7 @@ public class DaoCP {
     }
 
     public List<Result> getResults( String mSelection, String[] mSelctionArgs){
-        Log.d(TAG, "getNewResults");
+        //Log.d(TAG, "getNewResults");
         List<Result> out = new ArrayList<Result>();
 
         Uri mTableName = CP.URI_RESULT;
@@ -196,7 +195,7 @@ public class DaoCP {
     }
 
     public String getNotViewedResults(long sourceID){
-        Log.d(TAG, "getNotViewedResults");
+        //Log.d(TAG, "getNotViewedResults");
 
         Uri mTableName = CP.URI_RESULT;
         String[] mProjection = Result.resultColumns;
@@ -212,13 +211,13 @@ public class DaoCP {
             c.close();
         }
         else s="";
-        Log.i(TAG, s);
+        //Log.i(TAG, s);
 
         return s;
     }
 
     public List<String> getExcludedList(){
-        Log.d(TAG, "getExcludedList");
+        //Log.d(TAG, "getExcludedList");
         List<String> s = new ArrayList<String>();
 
         Uri mTableName = CP.URI_EXCLUDE;
@@ -239,7 +238,7 @@ public class DaoCP {
     }
 
     public List<String> getLastLinks(){
-        Log.d(TAG, "getLastLinks");
+        //Log.d(TAG, "getLastLinks");
         List<String> s = new ArrayList<String>();
 
         Uri mTableName = CP.URI_LINKS;
@@ -259,7 +258,7 @@ public class DaoCP {
     }
 
     public List<String> getLastLinks(long id){
-        Log.d(TAG, "getLastLinks");
+        //Log.d(TAG, "getLastLinks");
         List<String> s = new ArrayList<String>();
 
         Uri mTableName = CP.URI_LINKS;
@@ -279,7 +278,7 @@ public class DaoCP {
     }
 
     public Source getSource(String name){
-        Log.d(TAG, "getSource");
+        //Log.d(TAG, "getSource");
         Uri mTableName = CP.URI_SOURCE;
         String[] mProjection = Source.sourceColumns;
         String mSelection = Source.NAME+"=?";
@@ -303,7 +302,7 @@ public class DaoCP {
         return null;
     }
     public Source getSource(long id){
-        Log.d(TAG, "getSource");
+        //Log.d(TAG, "getSource");
         Uri mTableName = CP.URI_SOURCE;
         String[] mProjection = Source.sourceColumns;
         String mSelection = Source.ID+"=?";
@@ -328,7 +327,7 @@ public class DaoCP {
     }
 
     public List<Source> getSources(){
-        Log.d(TAG, "getSources()");
+        //Log.d(TAG, "getSources()");
         List<Source> s = new ArrayList<Source>();
 
         Uri mTableName = CP.URI_SOURCE;
@@ -375,10 +374,11 @@ public class DaoCP {
     }
 
     public void close(){
-        Log.d(TAG, "close()");
+        //Log.d(TAG, "close()");
     }
 
-    public void open(){Log.d(TAG, "open()");}
+    public void open(){//Log.d(TAG, "open()");
+         }
 
     public Result cursorToResult(Cursor c){
         Result r = new Result();

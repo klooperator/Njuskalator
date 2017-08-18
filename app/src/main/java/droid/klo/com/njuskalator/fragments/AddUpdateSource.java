@@ -58,14 +58,14 @@ public class AddUpdateSource extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        Log.d(TAG, "onCreateView");
+        //Log.d(TAG, "onCreateView");
         View view = inflater.inflate(R.layout.f_add_update_source,container, false);
         return view;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        Log.d(TAG, "onViewCreated");
+        //Log.d(TAG, "onViewCreated");
         super.onViewCreated(view, savedInstanceState);
         ((MainActivity)getActivity()).enableHamburgerAsBack(true);
 
@@ -110,7 +110,7 @@ public class AddUpdateSource extends Fragment {
                 String clipString = clipboardManager.getPrimaryClip().getItemAt(0).getText().toString();
                 if(clipString.contains("njuskalo.hr"))txt_link.setText(clipString);
             }catch (Exception e){
-                Log.e(TAG, e.getLocalizedMessage());
+                //Log.e(TAG, e.getLocalizedMessage());
                 txt_link.setText("");
             }
 
